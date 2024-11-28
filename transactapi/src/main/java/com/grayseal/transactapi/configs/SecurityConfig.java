@@ -26,7 +26,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests((authorize) -> {
                     authorize
-                            .requestMatchers("/api/customers/register", "/api/testApp/").permitAll()
+                            .requestMatchers("/api/customers/register").permitAll()
                             .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())

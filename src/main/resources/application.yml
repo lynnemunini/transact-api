@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: transactapi
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/transactdb
+    username: lynne
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672 # Default port for RabbitMQ broker
+    username: guest
+    password: guest
+    queue: user.queue
+    template:
+      exchange: user.exchange
+      routing-key: user.routingkey
+
+logging:
+  level:
+    root: INFO
+    com.grayseal.transactapi: ERROR
+
+  file:
+    name: ./logs/transactapi.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} - %-5level - %msg%n"

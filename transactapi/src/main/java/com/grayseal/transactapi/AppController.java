@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/testApp")
 public class AppController {
     @GetMapping("/")
-    public String testTransactApiApp() {
+    public String testTransactionAPIAPP() {
         return "App Running";
     }
 }

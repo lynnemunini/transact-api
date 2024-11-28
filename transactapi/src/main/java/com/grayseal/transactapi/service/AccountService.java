@@ -6,7 +6,6 @@ import com.grayseal.transactapi.entity.Account;
 import com.grayseal.transactapi.entity.Customer;
 import com.grayseal.transactapi.entity.Transaction;
 import com.grayseal.transactapi.repository.AccountRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +14,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Slf4j
 public class AccountService {
 
     @Autowired
@@ -68,9 +66,7 @@ public class AccountService {
                 if (srcBalance >= Double.parseDouble(amount)) {
                     // DO FT
                     double balance = srcBalance - Double.parseDouble(amount);
-                    log.error("THIS HAS BEEN REACHED {}", srcBalance);
                     source.setBalance(String.valueOf(balance));
-                    log.error("NEW SRC ACCOUNT {}", sourceAccount.get());
                     destination.setBalance(String.valueOf(Double.parseDouble(destination.getBalance()) + Double.parseDouble(amount)));
 
                     // Update accounts
@@ -84,10 +80,8 @@ public class AccountService {
 
         // Persist Debit transaction
         Transaction debitTransaction = transactionService.createTransaction("DEBIT", amount, sourceAccountNumber, destinationAccountNumber, referenceNo, sourceAccount.get());
-        log.error("Debit Transaction {}", debitTransaction);
         // Persist Credit transaction
         Transaction creditTransaction = transactionService.createTransaction("CREDIT", amount, sourceAccountNumber, destinationAccountNumber, referenceNo, destinationAccount.get());
-        log.error("Credit Transaction {}", creditTransaction);
         return debitTransaction != null && creditTransaction != null;
     }
 }

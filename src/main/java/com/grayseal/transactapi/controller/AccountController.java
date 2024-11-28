@@ -54,7 +54,7 @@ public class AccountController {
     @PostMapping("/fundstransfer")
     public ResponseEntity<String> transferFunds(@RequestBody @Valid FundsTransferReqDTO fundsTransferReqDTO) {
         try {
-            // Do FT and send transaction to rabbit mq
+            // Do FT and send transaction to rabbit mq if FT is successful
             boolean ftStatus = accountService.transferFunds(fundsTransferReqDTO.getSourceAccountNumber(), fundsTransferReqDTO.getDestinationAccountNumber(), fundsTransferReqDTO.getAmount());
             if (ftStatus) {
                 String transactionDetails = String.format(
